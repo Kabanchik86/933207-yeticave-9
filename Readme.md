@@ -1,7 +1,7 @@
 # Личный проект «YetiCave»
 
 * Студент: [Антон Кузнецов](https://up.htmlacademy.ru/php/9/user/933207).
-* Наставник: `Неизвестно`.
+* Наставник: [Maks Деев] (https://htmlacademy.ru/profile/id685777).
 
 ---
 
