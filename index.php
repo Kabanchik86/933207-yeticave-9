@@ -109,18 +109,18 @@ $goods = [
                     <h2>Открытые лоты</h2>
                 </div>
                 <ul class="lots__list">
-                    <!--заполните этот список из массива с товарами-->
+                <?php foreach ($goods as $key => $val): ?>
                     <li class="lots__item lot">
                         <div class="lot__image">
-                            <img src="" width="350" height="260" alt="">
+                            <img src="<?=$val['picture'];?>" width="350" height="260" alt="">
                         </div>
                         <div class="lot__info">
-                            <span class="lot__category">Название категории</span>
-                            <h3 class="lot__title"><a class="text-link" href="pages/lot.html">Название товара</a></h3>
+                            <span class="lot__category"><?=$val['category'];?></span>
+                            <h3 class="lot__title"><a class="text-link" href="pages/lot.html"><?=$val['name'];?></a></h3>
                             <div class="lot__state">
                                 <div class="lot__rate">
                                     <span class="lot__amount">Стартовая цена</span>
-                                    <span class="lot__cost">цена<b class="rub">р</b></span>
+                                    <span class="lot__cost"><?=$val['price'];?><b class="rub">р</b></span>
                                 </div>
                                 <div class="lot__timer timer">
                                     12:23
@@ -128,6 +128,7 @@ $goods = [
                             </div>
                         </div>
                     </li>
+                    <?php endforeach; ?>
                 </ul>
             </section>
         </main>
@@ -136,10 +137,15 @@ $goods = [
     <footer class="main-footer">
         <nav class="nav">
             <ul class="nav__list container">
-                <!--заполните этот список из массива категорий-->
-                <li class="nav__item">
-                    <a href="pages/all-lots.html">Название категории</a>
-                </li>
+                <?php
+                $index = 0;
+                $num = count($categories);
+                while ($index < $num) : ?>
+                    <li class="nav__item">
+                        <a href="pages/all-lots.html"><?= $categories[$index]; ?></a>
+                        <?php $index++; ?>
+                    </li>
+                <?php endwhile; ?>
             </ul>
         </nav>
         <div class="main-footer__bottom container">
