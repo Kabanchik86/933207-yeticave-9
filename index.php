@@ -2,6 +2,7 @@
 $is_auth = rand(0, 1);
 $user_name = 'Anton'; // укажите здесь ваше имя
 $categories = ['Доски и лыжи', 'Крепления', 'Ботинки', 'Одежда', 'Инструменты', 'Разное'];
+$title ='Главная страница';
 $goods = [
     [
         'name' => '2014 Rossignol District Snowboard',
@@ -41,8 +42,6 @@ $goods = [
     ]
 ];
 
-$layout='Главная страница';
-
 function sum_of_goods($price) {
         $output = 0;
         if ($price > 1000) {
@@ -77,7 +76,8 @@ $layout_content = include_template('layout.php',[
     'page_content'=> $page_content,
     'categories'=>$categories,
     'is_auth'=>$is_auth,
-    'user_name'=>$user_name
+    'user_name'=>$user_name,
+    'title'=>$title
     
 ]);
 print($layout_content);
