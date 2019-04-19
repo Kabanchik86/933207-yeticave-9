@@ -59,7 +59,7 @@
                 $num = count($categories);
                 while ($index < $num) : ?>
                     <li class="nav__item">
-                        <a href="pages/all-lots.html"><?= $categories[$index]; ?></a>
+                        <a href="pages/all-lots.html"><?=htmlspecialchars($categories[$index]); ?></a>
                         <?php $index++; ?>
                     </li>
                 <?php endwhile; ?>
