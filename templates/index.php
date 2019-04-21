@@ -32,13 +32,13 @@
                                         <span class="lot__amount">Стартовая цена</span>
                                         <span class="lot__cost"><?=htmlspecialchars (sum_of_goods($val['price'])); ?><b class="rub"> &ndash; &#8381;</b></span>
                                     </div>
-                                    <?php if ($time_hour <=1 ): ?>
+                                    <?php if (checking_time($value) <= 3600 ): ?>
                                     <div class="lot__timer timer timer--finishing">
-                                    <?= date('H:i', $time); ?> 
+                                    <?= date('H:i', checking_time($value)); ?> 
                                     </div>
                                     <?php else:?>
                                     <div class="lot__timer timer">
-                                    <?= date('H:i', $time); ?> 
+                                    <?= date('H:i', checking_time($value)); ?>
                                     </div>
                                     <?php endif;?>
                                 </div>

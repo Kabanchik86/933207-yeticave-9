@@ -29,5 +29,12 @@ function include_template($name, array $data = []) {
     return $result;
 }
 
-
+function checking_time($value){
+    if ($value) {
+            $time = strtotime($value) - strtotime('now');
+            return $time;
+            return false;  
+        }
+    
+}
 ?>
