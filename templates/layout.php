@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title><?= $title; ?></title>
+    <title><?=$title;?></title>
     <link href="css/normalize.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 </head>
@@ -25,13 +25,13 @@
                 <a class="main-header__add-lot button" href="pages/add-lot.html">Добавить лот</a>
 
                 <nav class="user-menu">
-                    <?php if ($is_auth === 1) : ?>
+                    <?php if ($is_auth === 1): ?>
                         <div class="user-menu__logged">
-                            <p><?php print($user_name); ?></p>
+                            <p><?php print($user_name);?></p>
                             <a class="user-menu__bets" href="pages/my-bets.html">Мои ставки</a>
                             <a class="user-menu__logout" href="#">Выход</a>
                         </div>
-                    <?php else : ?>
+                    <?php else: ?>
                         <ul class="user-menu__list">
                             <li class="user-menu__item">
                                 <a href="#">Регистрация</a>
@@ -40,14 +40,14 @@
                                 <a href="#">Вход</a>
                             </li>
                         </ul>
-                    <?php endif; ?>
+                    <?php endif;?>
                 </nav>
 
             </div>
         </header>
 
         <main class="container">
-      <?= $page_content?>
+      <?=$page_content?>
         </main>
     </div>
 
@@ -55,14 +55,14 @@
         <nav class="nav">
             <ul class="nav__list container">
                 <?php
-                $index = 0;
-                $num = count($categories);
-                while ($index < $num) : ?>
+$index = 0;
+$num = count($categories);
+while ($index < $num): ?>
                     <li class="nav__item">
-                        <a href="pages/all-lots.html"><?=htmlspecialchars($categories[$index]); ?></a>
-                        <?php $index++; ?>
+                        <a href="pages/all-lots.html"><?=htmlspecialchars($categories[$index]);?></a>
+                        <?php $index++;?>
                     </li>
-                <?php endwhile; ?>
+                <?php endwhile;?>
             </ul>
         </nav>
         <div class="main-footer__bottom container">
