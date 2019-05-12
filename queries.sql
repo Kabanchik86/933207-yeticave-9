@@ -25,7 +25,7 @@ VALUES
     ('26.04.2019', 'Маска Oakley Canopy','img/lot-6.jpg', '5400', 2, 6 );
 
 INSERT INTO bets
-    (bet_date, price_bet, user_id, lot_id)bet_date
+    (bet_date, price_bet, user_id, lot_id)
 VALUES
     ('27.04.2019', '12000', 1 , 1 ),
     ('27.04.2019', '10000', 1, 3 );
