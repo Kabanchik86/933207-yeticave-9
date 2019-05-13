@@ -43,12 +43,12 @@ if (empty($_POST)) {
             $errors['date_end'] = 'Не правильный формат даты';
         }
         //проверка значения числа
-        if (!(int)$_POST['first_price']) {
-            $errors['first_price'] = 'Введите числовое значение';
+        if (!(int)$_POST['first_price'] or (int)$_POST['first_price'] <= 0) {
+            $errors['first_price'] = 'Введите числовое значение или больше нуля';
         }
         //проверка значения числа
-        if (!(int)$_POST['price_step']) {
-            $errors['price_step'] = 'Введите числовое значение';
+        if (!(int)$_POST['price_step'] or (int)$_POST['price_step'] <= 0) {
+            $errors['price_step'] = 'Введите числовое значение или больше нуля';
         }
         //проверка выбранной категории
         if ($_POST['name_category'] == 'Выберите категорию') {
@@ -97,18 +97,10 @@ if (empty($_POST)) {
             //условие для добавления нового лота       
         } else {
 
-            $lot_name = $_POST['lot_name'];
-            $description = $_POST['description'];
             $name_category = $_POST['name_category'];
-            $first_price = $_POST['first_price'];
-            $price_step = $_POST['price_step'];
-            $date_end = $_POST['date_end'];
-            $path = $_FILES['picture']['name'];
             $picture = 'uploads/' . $path;
-
             $sql = "INSERT INTO lots (creat_date, user_id, lot_name, description, picture, first_price, price_step, date_end ) VALUES (NOW(),1,?,?,?,?,?,?)";
-
-            $stmt = db_get_prepare_stmt($con, $sql, [$lot_name, $description, $picture, $first_price, $price_step, $date_end]);
+            $stmt = db_get_prepare_stmt($con, $sql, [$lot['lot_name'], $lot['description'], $picture, $lot['first_price'], $lot['price_step'], $lot['date_end']]);
             $res = mysqli_stmt_execute($stmt);
 
             if ($res) {
