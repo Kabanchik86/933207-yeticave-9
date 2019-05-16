@@ -3,6 +3,8 @@ include_once 'functions.php';
 // соединение с БД
 $con = mysqli_connect("localhost", "root", "", "yeticave");
 mysqli_set_charset($con, "utf8");
+$title = 'Главная страница';
+session_start();
 
 if (empty($_POST)){
 // запрос в БД
@@ -19,8 +21,17 @@ $page_content = include_template('sign-up.php', [
     'rows' => $rows,
 ]);
 
-print($page_content);
-} else {
+$layout_content = include_template('layout.php', [
+    'page_content' => $page_content,
+    'rows' => $rows,
+    'title' => $title,
+
+]);
+print($layout_content);
+
+} 
+
+else {
 
     // валидация формы
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -66,7 +77,18 @@ print($page_content);
                 'dict' => $dict,
                 'rows' => $rows,
             ]);
-            print($page_content);
+            
+            $layout_content = include_template('layout.php', [
+                'page_content' => $page_content,
+                'rows' => $rows,
+                'title' => $title,
+            
+            ]);
+            print($layout_content);
+
+
+
+
 } else {
     $sql = "INSERT INTO users (regist_date, email, name, password, contact) VALUES (NOW(),?,?,?,?)";
     $stmt = db_get_prepare_stmt($con, $sql, [$e_mail, $sign_up['name'], $password, $sign_up['contact']]);

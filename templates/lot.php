@@ -20,6 +20,7 @@
               <p class="lot-item__category">Категория: <span><?=htmlspecialchars($val['name_category']);?></span></p>
               <p class="lot-item__description"><?=htmlspecialchars($val['description']);?></p>
             </div>
+            <?php if (isset($_SESSION['user'])): ?>
             <div class="lot-item__right">
               <div class="lot-item__state">
                 <?php if (checking_time($value) <= 3600): ?>
@@ -49,6 +50,29 @@
                   <button type="submit" class="button">Сделать ставку</button>
                 </form>
               </div>
+              <?php else: ?>
+              <div class="lot-item__right">
+              <div class="lot-item__state">
+                <?php if (checking_time($value) <= 3600): ?>
+                  <div class="lot__timer timer timer--finishing">
+                    <?=date('H:i', checking_time($value));?>
+                  </div>
+                <?php else: ?>
+                  <div class="lot-item__timer timer">
+                    <?=date('H:i', checking_time($value));?>
+                  </div>
+                <?php endif;?>
+                <div class="lot-item__cost-state">
+                  <div class="lot-item__rate">
+                    <span class="lot-item__amount">Текущая цена</span>
+                    <span class="lot-item__cost"><?=htmlspecialchars($val['first_price']);?></span>
+                  </div>
+                  <div class="lot-item__min-cost">
+                    Мин. ставка <span><?=htmlspecialchars($val['price_step']);?></span>
+                  </div>
+                </div>
+              </div>
+                <?php endif; ?>
               <div class="history">
                 <h3>История ставок </h3>
                 <table class="history__list">
