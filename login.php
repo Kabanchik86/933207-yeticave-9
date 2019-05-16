@@ -3,6 +3,7 @@ include_once 'functions.php';
 // соединение с БД
 $con = mysqli_connect("localhost", "root", "", "yeticave");
 mysqli_set_charset($con, "utf8");
+$title = 'Главная страница';
 session_start();
 
 if (empty($_POST)) {
@@ -20,7 +21,14 @@ if (empty($_POST)) {
         'rows' => $rows,
     ]);
 
-    print($page_content);
+    $layout_content = include_template('layout.php', [
+        'page_content' => $page_content,
+        'rows' => $rows,
+        'title' => $title,
+    
+    ]);
+    print($layout_content);
+
 } else {
 
     // валидация формы
@@ -65,7 +73,15 @@ if (empty($_POST)) {
                 'dict' => $dict,
                 'rows' => $rows,
             ]);
-            print($page_content);
+
+            $layout_content = include_template('layout.php', [
+                'page_content' => $page_content,
+                'rows' => $rows,
+                'title' => $title,
+            
+            ]);
+            print($layout_content);
+
         } else {
 
             header("Location: index.php");
