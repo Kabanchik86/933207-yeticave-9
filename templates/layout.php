@@ -22,15 +22,14 @@
                     <input class="main-header__search-btn" type="submit" name="find" value="Найти">
                 </form>
                 <a class="main-header__add-lot button" href="add.php">Добавить лот</a>
-
+                <?php if (isset($_SESSION['user'])): ?>
                 <nav class="user-menu">
-                    <?php if ($is_auth === 1) : ?>
                         <div class="user-menu__logged">
-                            <p><?php print($user_name); ?></p>
+                            <p><?=strip_tags($_SESSION['user']['name']); ?></p>
                             <a class="user-menu__bets" href="pages/my-bets.html">Мои ставки</a>
-                            <a class="user-menu__logout" href="#">Выход</a>
+                            <a class="user-menu__logout" href="logout.php">Выход</a>
                         </div>
-                    <?php else : ?>
+                        <?php else: ?>
                         <ul class="user-menu__list">
                             <li class="user-menu__item">
                                 <a href="sign-up.php">Регистрация</a>
@@ -39,9 +38,8 @@
                                 <a href="login.php">Вход</a>
                             </li>
                         </ul>
-                    <?php endif; ?>
                 </nav>
-
+                <?php endif; ?>
             </div>
         </header>
         <?= $page_content ?>
