@@ -105,11 +105,11 @@ if (empty($_POST)) {
 
             //условие для добавления нового лота       
         } else {
-
+            $user_id = $_SESSION['user']['id'];
             $name_category = $_POST['name_category'];
             $picture = 'uploads/' . $path;
-            $sql = "INSERT INTO lots (creat_date, user_id, lot_name, description, picture, first_price, price_step, date_end ) VALUES (NOW(),1,?,?,?,?,?,?)";
-            $stmt = db_get_prepare_stmt($con, $sql, [$lot['lot_name'], $lot['description'], $picture, $lot['first_price'], $lot['price_step'], $lot['date_end']]);
+            $sql = "INSERT INTO lots (creat_date, user_id, lot_name, description, picture, first_price, price_step, date_end ) VALUES (NOW(),?,?,?,?,?,?,?)";
+            $stmt = db_get_prepare_stmt($con, $sql, [$user_id, $lot['lot_name'], $lot['description'], $picture, $lot['first_price'], $lot['price_step'], $lot['date_end']]);
             $res = mysqli_stmt_execute($stmt);
 
             if ($res) {

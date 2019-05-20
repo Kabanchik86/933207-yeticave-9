@@ -18,11 +18,13 @@ if ($res = mysqli_query($con, $sql)) {
 }
 
 
+
+
+
     // Подключаем - templates/index.php
 
     $page_content = include_template('my-bets.php', [
-
-
+        'rows' => $rows,
     ]);
 
     // Подключаем - templates/layout.php

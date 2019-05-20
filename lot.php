@@ -98,10 +98,15 @@ if ($res = mysqli_query($con, $sql)) {
             $res = mysqli_stmt_execute($stmt);
 
             if ($res){
-                $lot_id = mysqli_insert_id($con);
-                $sql = "UPDATE lots 
-                SET category_id = (SELECT id FROM categories WHERE name_category = '$name_category')
-                WHERE category_id IS NULL";
+                $user_id=$_SESSION['user']['id'];
+                $sql = "UPDATE bets 
+                SET user_id = (SELECT id FROM users WHERE id = '$user_id')
+                WHERE user_id IS NULL";
+                $res = mysqli_query($con, $sql);
+                $param = mysqli_fetch_all($res, MYSQLI_ASSOC);
+                $sql = "UPDATE bets 
+                SET lot_id = (SELECT id FROM lots WHERE id = '$id')
+                WHERE lot_id IS NULL";
                 $res = mysqli_query($con, $sql);
                 $param = mysqli_fetch_all($res, MYSQLI_ASSOC);
                 header("Location: my-bets.php");
