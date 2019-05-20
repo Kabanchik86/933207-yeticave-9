@@ -53,10 +53,6 @@ if (empty($_POST)) {
         if (!(int)$_POST['first_price'] or (int)$_POST['first_price'] <= 0) {
             $errors['first_price'] = 'Введите числовое значение или больше нуля';
         }
-        //проверка значения числа
-        if (!(int)$_POST['price_step'] or (int)$_POST['price_step'] <= 0) {
-            $errors['price_step'] = 'Введите числовое значение или больше нуля';
-        }
         //проверка выбранной категории
         if ($_POST['name_category'] == 'Выберите категорию') {
             $errors['name_category'] = 'Выберите категорию';
