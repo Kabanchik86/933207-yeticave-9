@@ -11,9 +11,12 @@ $con = mysqli_connect("localhost", "root", "", "yeticave");
 mysqli_set_charset($con, "utf8");
 $errors['price_bet']='';
 
-if (isset($_GET['id']) and !empty($_GET['id'])) //проверка существования параметра
+//проверка существования параметра lot_id;
+
+if (isset($_GET['id']) and !empty($_GET['id'])) 
 {
     $id = intval($_GET['id']);
+
 } else {
     http_response_code(404);
     $page404 = include_template('404.php', []);
@@ -45,13 +48,16 @@ if ($res = mysqli_query($con, $sql)) {
     die($page404);
 }
 
+// проверка для введенной ставки
+
  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $required = ['price_bet'];
     $dict = ['price_bet' => 'Ваша ставка'];
     $errors = [];
     $price = $param[0]['first_price'] + $param[0]['price_step']; 
 
-    if (empty($_POST['price_bet'])) {  //проверка заполнения формы 
+    //проверка заполнения формы 
+    if (empty($_POST['price_bet'])) {
     $errors['price_bet'] = 'Это поле надо заполнить';
     }
 
@@ -109,7 +115,7 @@ if ($res = mysqli_query($con, $sql)) {
                 WHERE lot_id IS NULL";
                 $res = mysqli_query($con, $sql);
                 $param = mysqli_fetch_all($res, MYSQLI_ASSOC);
-                header("Location: my-bets.php");
+                header("Location: my-bets.php?id=" .$user_id);
             }
             
         }
@@ -121,18 +127,12 @@ if ($res = mysqli_query($con, $sql)) {
         'rows' => $rows,
         'id' => $id,
         'errors' => $errors
-        //'user_name' => $user_name,
-        //'is_auth' => $is_auth,
     ]);
     $layout_content = include_template('layout.php', [
         'page_content' => $page_content,
         'rows' => $rows,
-        //'is_auth' => $is_auth,
-        //'user_name' => $user_name,
-        'title' => $title,
+        'title' => $title
     
     ]);
     print($layout_content);
 }
-
-?>
