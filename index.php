@@ -2,7 +2,7 @@
 include_once 'functions.php'; // подключаем файл функций
 // переменные
 $title = 'Главная страница';
-$value = 'tomorrow midnight';
+//$value = 'tomorrow midnight';
 session_start();
 // запросы в БД
 $con = mysqli_connect("localhost", "root", "", "yeticave");
@@ -20,21 +20,20 @@ if (isset($_SESSION['user']['id'])) {
         die('Unknown error');
     }
 
-    $sql = "SELECT l.id, lot_name, picture, first_price, name_category from lots l
+    $sql = "SELECT l.id, lot_name, picture, first_price, name_category, date_end from lots l
             JOIN categories c ON l.category_id = c.id";
     if ($res = mysqli_query($con, $sql)) {
         $goods = mysqli_fetch_all($res, MYSQLI_ASSOC);
     } else {
         die('Unknown error');
     }
-
+ 
     // Подключаем - templates/index.php
 
     $page_content = include_template('index.php', [
         'rows' => $rows,
         'goods' => $goods,
-        'value' => $value,
-
+        //'value' => $value,
     ]);
 
     // Подключаем - templates/layout.php
@@ -58,7 +57,7 @@ if (isset($_SESSION['user']['id'])) {
         die('Unknown error');
     }
 
-    $sql = "SELECT l.id, lot_name, picture, first_price, name_category from lots l
+    $sql = "SELECT l.id, lot_name, picture, first_price, name_category, date_end from lots l
         JOIN categories c ON l.category_id = c.id";
     if ($res = mysqli_query($con, $sql)) {
         $goods = mysqli_fetch_all($res, MYSQLI_ASSOC);
@@ -71,7 +70,7 @@ if (isset($_SESSION['user']['id'])) {
     $page_content = include_template('index.php', [
         'rows' => $rows,
         'goods' => $goods,
-        'value' => $value,
+       // 'value' => $value,
 
     ]);
 

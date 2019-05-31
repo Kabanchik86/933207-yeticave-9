@@ -38,14 +38,14 @@ function include_template($name, array $data = [])
     return $result;
 }
 
-function checking_time($value)
+/* function checking_time($value)
 {
     if ($value) {
         $time = strtotime($value) - strtotime('now');
         return $time;
     }
     return false;
-}
+} */
 
 //Создает подготовленное выражение на основе готового SQL запроса и переданных данных
 
@@ -91,4 +91,30 @@ function db_get_prepare_stmt($link, $sql, $data = [])
     }
 
     return $stmt;
+}
+
+// Таймер для вычисления времени. 
+
+function get_noun_plural_form (int $number, string $one, string $two, string $many): string
+{
+    $number = (int) $number;
+    $mod10 = $number % 10;
+    $mod100 = $number % 100;
+
+    switch (true) {
+        case ($mod100 >= 11 && $mod100 <= 20):
+            return $many;
+
+        case ($mod10 > 5):
+            return $many;
+
+        case ($mod10 === 1):
+            return $one;
+
+        case ($mod10 >= 2 && $mod10 <= 4):
+            return $two;
+
+        default:
+            return $many;
+    }
 }
