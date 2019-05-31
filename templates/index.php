@@ -28,13 +28,17 @@
                                         <span class="lot__amount">Стартовая цена</span>
                                         <span class="lot__cost"><?= htmlspecialchars(sum_of_goods($val['first_price'])); ?><b class="rub"> &ndash; &#8381;</b></span>
                                     </div>
-                                    <?php if (checking_time($value) <= 3600) : ?>
+                                    <?php if (strtotime($val['date_end']) - strtotime('now') <= 3600 && strtotime($val['date_end']) - strtotime('now') > 0) : ?>
                                         <div class="lot__timer timer timer--finishing">
-                                            <?= date('H:i', checking_time($value)); ?>
+                                            <?= date('H:i', (strtotime($val['date_end']) - strtotime('now'))); ?>
                                         </div>
-                                    <?php else : ?>
+                                    <?php elseif (strtotime($val['date_end']) - strtotime('now') < 0) : ?>
                                         <div class="lot__timer timer">
-                                            <?= date('H:i', checking_time($value)); ?>
+                                            <?= 'Торги окончены'; ?>
+                                        </div>
+                                    <?php elseif (strtotime($val['date_end']) - strtotime('now') > 0) : ?>
+                                        <div class="lot__timer timer">
+                                            <?= date('H:i', (strtotime($val['date_end']) - strtotime('now'))); ?>
                                         </div>
                                     <?php endif; ?>
                                 </div>
