@@ -7,7 +7,7 @@ session_start();
 // запросы в БД
 $con = mysqli_connect("localhost", "root", "", "yeticave");
 mysqli_set_charset($con, "utf8");
-$remaining_minutes = 28;
+$remaining_minutes = 21;
 
 if (isset($_SESSION['user']['id']) and !empty($_SESSION['user']['id'])) //проверка существования параметра
 {
@@ -37,55 +37,54 @@ if ($res = mysqli_query($con, $sql)) {
     die('Unknown error');
 }
 
-if ($lot){
-foreach ($lot as $key => $val) {
-    if ($val) {
-        $lot_id = $val['lot_id'];
-        $price_bet = $val['price_bet'];
-        $sql = "SELECT lot_name, picture, name_category, date_end, price_bet, l.id from lots l
+if ($lot) {
+    foreach ($lot as $key => $val) {
+        if ($val) {
+            $lot_id = $val['lot_id'];
+            $price_bet = $val['price_bet'];
+            $sql = "SELECT lot_name, picture, name_category, date_end, price_bet, l.id from lots l
     JOIN categories c ON l.category_id = c.id
     JOIN bets b ON l.id = b.lot_id
     WHERE l.id = $lot_id and b.price_bet = $price_bet";
-        if ($data = mysqli_query($con, $sql)) {
-            $bet_data[] = mysqli_fetch_array($data, MYSQLI_ASSOC);
-        } else {
-            $error = mysqli_connect_error();
-            die('Unknown error');
+            if ($data = mysqli_query($con, $sql)) {
+                $bet_data[] = mysqli_fetch_array($data, MYSQLI_ASSOC);
+            } else {
+                $error = mysqli_connect_error();
+                die('Unknown error');
+            }
         }
     }
-
-}
-// Подключаем - templates/index.php
-$page_content = include_template('my-bets.php', [
-    'rows' => $rows,
-    'bet_data' => $bet_data,
-    'remaining_minutes' => $remaining_minutes,
-    'val' => $val,
-
-]);
-
-// Подключаем - templates/layout.php
-$layout_content = include_template('layout.php', [
-    'page_content' => $page_content,
-    'rows' => $rows,
-    'title' => $title,
-    'user_id' => $user_id
-
-]);
-print($layout_content);
-} else {
+    // Подключаем - templates/index.php
     $page_content = include_template('my-bets.php', [
         'rows' => $rows,
-    
+        'bet_data' => $bet_data,
+        'remaining_minutes' => $remaining_minutes,
+        'val' => $val,
+
     ]);
-    
+
     // Подключаем - templates/layout.php
     $layout_content = include_template('layout.php', [
         'page_content' => $page_content,
         'rows' => $rows,
         'title' => $title,
         'user_id' => $user_id
-    
+
+    ]);
+    print($layout_content);
+} else {
+    $page_content = include_template('my-bets.php', [
+        'rows' => $rows,
+
+    ]);
+
+    // Подключаем - templates/layout.php
+    $layout_content = include_template('layout.php', [
+        'page_content' => $page_content,
+        'rows' => $rows,
+        'title' => $title,
+        'user_id' => $user_id
+
     ]);
     print($layout_content);
 }

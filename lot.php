@@ -36,7 +36,7 @@ if ($res = mysqli_query($con, $sql)) {
         $sql = "SELECT lot_name, picture, first_price, description, name_category, price_step, date_end, price_bet FROM lots l 
         JOIN categories c ON l.category_id = c.id
         JOIN bets b ON l.id = b.lot_id
-        WHERE l.id = $id and b.price_bet = (SELECT MAX(price_bet) FROM bets)";
+        WHERE l.id = $id and b.price_bet = (SELECT price_bet FROM bets WHERE lot_id = $id ORDER BY bet_date DESC LIMIT 1)";
         if ($res = mysqli_query($con, $sql)) {
             $param = mysqli_fetch_all($res, MYSQLI_ASSOC);
             if (empty($param)) {
@@ -50,24 +50,22 @@ if ($res = mysqli_query($con, $sql)) {
             die($page404);
         }
     } else {
-    $sql = "SELECT lot_name, picture, first_price, description, name_category, price_step, date_end FROM lots l 
+        $sql = "SELECT lot_name, picture, first_price, description, name_category, price_step, date_end FROM lots l 
     JOIN categories c ON l.category_id = c.id
     WHERE l.id = $id";
-    if ($res = mysqli_query($con, $sql)) {
-        $param = mysqli_fetch_all($res, MYSQLI_ASSOC);
-        if (empty($param)) {
+        if ($res = mysqli_query($con, $sql)) {
+            $param = mysqli_fetch_all($res, MYSQLI_ASSOC);
+            if (empty($param)) {
+                http_response_code(404);
+                $page404 = include_template('404.php', []);
+                die($page404);
+            }
+        } else {
             http_response_code(404);
             $page404 = include_template('404.php', []);
             die($page404);
         }
-    } else {
-        http_response_code(404);
-        $page404 = include_template('404.php', []);
-        die($page404);
     }
-
-}
-
     // проверка для введенной ставки
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -111,8 +109,6 @@ if ($res = mysqli_query($con, $sql)) {
             $layout_content = include_template('layout.php', [
                 'page_content' => $page_content,
                 'rows' => $rows,
-                //'is_auth' => $is_auth,
-                //'user_name' => $user_name,
                 'title' => $title,
 
             ]);

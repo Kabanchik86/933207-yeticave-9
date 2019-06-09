@@ -18,7 +18,7 @@
               <div class="rates__img">
                 <img src="<?= htmlspecialchars($data['picture']); ?>" width="54" height="40" alt="Сноуборд">
               </div>
-              <h3 class="rates__title"><a href="lot.php?id=<?=htmlspecialchars($data['id']);?>"><?= htmlspecialchars($data['lot_name']); ?></a></h3>
+              <h3 class="rates__title"><a href="lot.php?id=<?= htmlspecialchars($data['id']); ?>"><?= htmlspecialchars($data['lot_name']); ?></a></h3>
             </td>
             <td class="rates__category">
               <?= htmlspecialchars($data['name_category']); ?>
@@ -37,8 +37,8 @@
               <?= htmlspecialchars($data['price_bet']); ?>
             </td>
             <td class="rates__time">
-            <?= $remaining_minutes ?>
-            <?= get_noun_plural_form($remaining_minutes,'час','часы','часов'); ?>
+              <?= $remaining_minutes ?>
+              <?= get_noun_plural_form($remaining_minutes, 'час', 'часа', 'часов'); ?>
             </td>
           </tr>
         <?php endforeach; ?>

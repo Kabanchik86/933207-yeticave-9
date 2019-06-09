@@ -47,3 +47,6 @@ CREATE UNIQUE INDEX email ON users (email);
 CREATE UNIQUE INDEX contact ON users (contact);
 CREATE INDEX  description ON lots(description);
 CREATE INDEX  lot_name ON lots(lot_name);
+
+CREATE FULLTEXT INDEX lot_search
+ON lots(lot_name, description);

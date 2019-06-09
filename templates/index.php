@@ -5,7 +5,7 @@
                 <ul class="promo__list">
                     <?php foreach ($rows as $row) : ?>
                         <li class="promo__item promo__item--<?= htmlspecialchars($row['symbol_code']); ?>">
-                            <a class="promo__link" href="lot.php"><?= htmlspecialchars($row['name_category']); ?></a>
+                            <a class="promo__link" href="index.php?search=<?= htmlspecialchars($row['name_category']); ?>"><?= htmlspecialchars($row['name_category']); ?></a>
                         </li>
                     <?php endforeach; ?>
                 </ul>
@@ -47,5 +47,22 @@
                     <?php endforeach; ?>
                 </ul>
             </section>
+            <?php if ($pages_count > 1) : ?>
+        <ul class="pagination-list">
+        <li class="pagination-item pagination-item-prev"><a></a></li>
+        <?php if (isset($search)):?>  
+        <?php foreach ($pages as $page) : ?>
+            <li class="pagination-item"><a href="index.php?search=<?=$search; ?>&page=<?=$page; ?>"><?=$page; ?></a></li>
+          <?php endforeach; ?>
+          <?php else :?>
+          <?php foreach ($pages as $page) : ?>
+          <li class="pagination-item"><a href="index.php?page=<?=$page; ?>"><?=$page; ?></a></li>
+          <?php endforeach; ?>
+        <?php endif;?>
+          <li class="pagination-item"><a></a></li>
+        <li class="pagination-item pagination-item-next"><a></a></li>
+      </ul>
+      <?php else : ?>
+      <?php endif; ?>
         </main>
         </div>
