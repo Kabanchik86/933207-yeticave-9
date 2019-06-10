@@ -1,32 +1,17 @@
-
-    <main>
-        <nav class="nav">
-            <ul class="nav__list container">
+<main>
+    <nav class="nav">
+        <ul class="nav__list container">
+            <?php foreach ($rows as $row) : ?>
                 <li class="nav__item">
-                    <a href="all-lots.html">Доски и лыжи</a>
+                    <a href="index.php?search=<?= htmlspecialchars($row['name_category']); ?>"><?= htmlspecialchars($row['name_category']); ?></a>
                 </li>
-                <li class="nav__item">
-                    <a href="all-lots.html">Крепления</a>
-                </li>
-                <li class="nav__item">
-                    <a href="all-lots.html">Ботинки</a>
-                </li>
-                <li class="nav__item">
-                    <a href="all-lots.html">Одежда</a>
-                </li>
-                <li class="nav__item">
-                    <a href="all-lots.html">Инструменты</a>
-                </li>
-                <li class="nav__item">
-                    <a href="all-lots.html">Разное</a>
-                </li>
-            </ul>
-        </nav>
-        <section class="lot-item container">
-            <h2>404 Страница не найдена</h2>
-            <p>Данной страницы не существует на сайте.</p>
-        </section>
-    </main>
+            <?php endforeach; ?>
+        </ul>
+    </nav>
+    <section class="lot-item container">
+        <h2>404 Страница не найдена</h2>
+        <p>Данной страницы не существует на сайте.</p>
+    </section>
+</main>
 
 </div>
-

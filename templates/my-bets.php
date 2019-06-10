@@ -3,7 +3,7 @@
     <ul class="nav__list container">
       <?php foreach ($rows as $row) : ?>
         <li class="nav__item">
-          <a href="pages/all-lots.html"><?= htmlspecialchars($row['name_category']); ?></a>
+          <a href="index.php?search=<?= htmlspecialchars($row['name_category']); ?>"><?= htmlspecialchars($row['name_category']); ?></a>
         </li>
       <?php endforeach; ?>
     </ul>
